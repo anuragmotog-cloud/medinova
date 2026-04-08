@@ -1,0 +1,5 @@
+{
+  "name": "Medicine Shortage Tracker",
+  "description": "A professional tool for pharmacies to log and track medicine shortages and customer requests.",
+  "requestFramePermissions": []
+}

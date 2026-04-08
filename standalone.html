@@ -174,7 +174,7 @@
         ];
 
         let entries = [];
-        const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL'; // Replace with your actual URL
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxcjyEd2-rZTQBD4fvVa4aCQIaxsNQY3Z3HlKMbBRX2r4craQPVjlcrJIeP58pWbXIV/exec';
 
         const form = document.getElementById('shortageForm');
         const medicineInput = document.getElementById('medicineName');
@@ -240,18 +240,20 @@
             btnLoader.classList.add('flex');
 
             try {
-                // In actual deployment, uncomment the fetch block below
-                /*
-                const response = await fetch(GAS_URL, {
+                // Use URLSearchParams for better compatibility with GAS 'no-cors' mode
+                const params = new URLSearchParams();
+                params.append('customerName', data.customerName);
+                params.append('phoneNumber', data.phoneNumber);
+                params.append('medicineName', data.medicineName);
+                params.append('quantity', data.quantity);
+                params.append('urgency', data.urgency);
+
+                await fetch(GAS_URL, {
                     method: 'POST',
-                    body: JSON.stringify(data),
+                    body: params,
                     mode: 'no-cors'
                 });
-                */
                 
-                // Simulate delay
-                await new Promise(r => setTimeout(r, 1500));
-
                 // Update Local State
                 entries.unshift(data);
                 entries = entries.slice(0, 3);

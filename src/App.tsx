@@ -102,21 +102,22 @@ export default function App() {
     e.preventDefault();
     setIsSaving(true);
 
-    // In a real app, you'd replace this with your Google Apps Script URL
-    // const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxcjyEd2-rZTQBD4fvVa4aCQIaxsNQY3Z3HlKMbBRX2r4craQPVjlcrJIeP58pWbXIV/exec';
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Mock fetch (commented out for actual use)
-      /*
-      const response = await fetch(GAS_URL, {
+      // Use URLSearchParams for better compatibility with GAS 'no-cors' mode
+      const params = new URLSearchParams();
+      params.append('customerName', formData.customerName);
+      params.append('phoneNumber', formData.phoneNumber);
+      params.append('medicineName', formData.medicineName);
+      params.append('quantity', formData.quantity.toString());
+      params.append('urgency', formData.urgency);
+
+      await fetch(GAS_URL, {
         method: 'POST',
-        body: JSON.stringify(formData),
-        mode: 'no-cors' // Required for GAS
+        body: params,
+        mode: 'no-cors'
       });
-      */
 
       const newEntry: ShortageEntry = {
         id: Math.random().toString(36).substr(2, 9),
